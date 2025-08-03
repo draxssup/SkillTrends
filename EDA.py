@@ -19,3 +19,7 @@ data = data.dropna(subset='date_posted')
 print((data.isnull().sum()/data['title'].count())*100)
 #saving cleaned data:
 data.to_csv('data/newdata.csv', index=False)
+#handling datetime
+data['date_posted'] = pd.to_datetime(data['date_posted'], errors='coerce')
+data['month'] = data['date_posted'].dt.to_period('M')
+print(data['month'].value_counts().sort_index())
